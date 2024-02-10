@@ -13,6 +13,8 @@ import com.packt.cardatabase.domain.Car;
 import com.packt.cardatabase.domain.CarRepository;
 import com.packt.cardatabase.domain.Owner;
 import com.packt.cardatabase.domain.OwnerRepository;
+import com.packt.cardatabase.domain.User;
+import com.packt.cardatabase.domain.UserRepository;
 
 @SpringBootApplication
 public class CardatabaseApplication implements CommandLineRunner {
@@ -23,6 +25,8 @@ public class CardatabaseApplication implements CommandLineRunner {
 	private CarRepository repository;
 	@Autowired
 	private OwnerRepository ownerRepository;
+	@Autowired
+	private UserRepository userRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CardatabaseApplication.class, args);
@@ -41,5 +45,8 @@ public class CardatabaseApplication implements CommandLineRunner {
 		for (Car car : repository.findAll()) {
 			logger.info(car.getBrand() + " " + car.getModel());
 		}
+
+		userRepository.save(new User("user", "$2a$10$Eqw4tjyRhukLV7DcrnLn0ujyEaST0J5dtOmkqUB/lXG537KNRsWIi", "USER"));
+		userRepository.save(new User("admin", "$2a$10$ctvo70LP7QtNeFyX3uJ0Aen90twWZIMgElIPuGex0l54EeuH7DJQi", "ADMIN"));
 	}
 }
